@@ -65,14 +65,18 @@ $(function() {
           */
 
           it('changes visibility when clicked', function() {
-            if (menu.classList.value == "menu-hidden") {
-              icon.click();
-              expect(menu.classList.value).toBe("");
-          }
-            if (menu.classList.value == ""){
-              icon.click()
-              expect(menu.classList.value).toBe("menu-hidden");
-          }
+          //   if (menu.classList.value == "menu-hidden") {
+          //     icon.click();
+          //     expect(menu.classList.value).toBe("");
+          // }
+          //   if (menu.classList.value == ""){
+          //     icon.click()
+          //     expect(menu.classList.value).toBe("menu-hidden");
+          // }
+            icon.click();
+            expect(menu.classList.value).toBe("");
+            icon.click();
+            expect(menu.classList.value).toBe("menu-hidden");
         });
     });
 
