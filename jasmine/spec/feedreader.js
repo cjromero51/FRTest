@@ -23,17 +23,16 @@ $(function() {
 
     describe('The menu', function() {
         var icon = document.querySelector('.icon-list');
-        var menu = document.querySelector('.menu-hidden');
         //ensures the menu is hidden by default
         it('is hidden by default', function() {
-            expect(menu.classList.value).toBe("menu-hidden");
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
         //clicks the icon twice to ensure the menu gets toggled correctly
         it('changes visibility when clicked', function() {
             icon.click();
-            expect(menu.classList.value).toBe("");
+            expect($('body').hasClass("menu-hidden")).toBe(false);
             icon.click();
-            expect(menu.classList.value).toBe("menu-hidden");
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
     });
 
@@ -47,32 +46,26 @@ $(function() {
         //makes sure that when loadFeed() completes,
         //the feed container is not empty
         it('should load a .entry element into .feed', function(done) {
-            expect($('.feed').length).not.toBe(0);
+            expect($('.feed.entry')).toBeDefined();
             done();
         });
     });
 
     describe("New Feed Selection", function() {
-        //stores nodeList elements
-        arrayOne = [];
-        arrayTwo = [];
 
         beforeEach(function(done) {
             loadFeed(0, function() {
-                //pushes to arrays for comparison
-                var lf0 = document.querySelectorAll('.entry-link');
-                arrayOne.push(lf0[0]);
+                initialData = document.querySelector('.feed').innerHTML;
                 loadFeed(1, function() {
-                    var lf1 = document.querySelectorAll('.entry-link');
-                    arrayTwo.push(lf1[0]);
-                    done();
+                  newData = document.querySelector('.feed').innerHTML;
+                  done();
                 });
             });
         });
         //makes sure the page content changes on different feed inputs
         it('should check to see if loadFeed() changes the content', function(done) {
             //compares html from each array
-            expect(arrayOne[0].href).not.toBe(arrayTwo[0].href);
+            expect(initialData).not.toBe(newData);
             done();
         })
     })
